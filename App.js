@@ -1,21 +1,123 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { Component } from 'react';
+import { StyleSheet, Text, TextInput, View, TouchableOpacity, Keyboard, TouchableWithoutFeedback } from 'react-native';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
-  );
+
+// type Props = {};
+export default class App extends Component {
+
+  constructor(props){
+    super(props)
+    this.state = {altura:0, massa:0, resultado:0, resultadoText:''}
+    this.calcular = this.calcular.bind(this);
+  }
+
+  calcular(){
+
+    let imc = this.state.massa / (this.state.altura*this.state.altura)
+
+    let s = this.state
+    s.resultado = imc
+    
+    // < 16 Magreza severa
+    // 16 a < 17 Magreza moderada
+    // 17 a < 18,5 Magreza leve
+    // 18,5 a < 25 Saudável
+    // 25 a < 30 Acima do Peso
+    // 30 a < 35 Obesidade I
+    // 35 a < 40 Obesidade II
+    // > 40 Obesidade III (Mórbida)
+     
+
+    if(s.resultado <16){
+      s.resultadoText = 'Magreza severa'
+    }
+    else if(s.resultado <17){
+      s.resultadoText = 'Magreza Moderada'
+    }
+    else if(s.resultado <18.5){
+      s.resultadoText = 'Magreza Leve'
+    }
+    else if(s.resultado <25){
+      s.resultadoText = 'Saudável'
+    }
+    else if(s.resultado <30){
+      s.resultadoText = 'Acima do Peso'
+    }
+    else if(s.resultado <35){
+      s.resultadoText = 'Obesidade I'
+    }
+    else if(s.resultado <40){
+      s.resultadoText = 'Obesidade II'
+    }
+    else if (s.resultado > 40){
+      s.resultadoText = 'Obesidade Mórbida'
+    } else {
+      s.resultadoText = 'Por favor, corrija os dados e tente novamente'
+    }
+    this.setState(s)
+  }
+  render(){
+    return (
+      <View style={styles.container}>
+        <Text style={styles.titulo}>IMC</Text>
+        <Text style={styles.subtitulo}>Índice de Massa Corporal</Text>
+        <View style={styles.entradas}>
+          <TextInput placeholder="Peso" keyboardType="numeric" style={styles.input} onChangeText={(massa)=>{this.setState({massa})}}/>
+          <TextInput placeholder="Altura" keyboardType="numeric" style={styles.input} onChangeText={(altura)=>{this.setState({altura})}}/>
+        </View>
+        <TouchableOpacity style={styles.button} onPress={this.calcular}><Text style={styles.buttonText}>Calcular</Text></TouchableOpacity>
+        <Text style={[styles.resultado, {paddingTop:15}]}>{this.state.resultado.toFixed(2)}</Text>
+        <Text style={[styles.resultado, {fontSize:65, paddingTop:5, color:'red'}]}>{this.state.resultadoText}</Text>
+      </View>
+    );
+  }
 }
-
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: '#FFF',
+    paddingTop: 35
   },
+  titulo:{
+    fontSize: 55,
+    alignSelf: 'center',
+    color: '#5C014E',
+    fontFamily: 'sans-serif',
+    fontWeight: 'bold'
+  },
+  subtitulo:{
+    alignSelf: 'center',
+    fontSize: 25,
+    color: '#5C014E',
+    fontWeight: 'bold'
+  },
+  entradas:{
+    flexDirection:'row',
+  },
+  input:{
+    height: 80,
+    textAlign: "left",
+    width: "50%",
+    fontSize: 50,
+    marginTop: 24,
+    padding: 10
+  },
+  button:{
+    backgroundColor:"#5C014E"
+  },
+  buttonText:{
+    alignSelf: 'center',
+    padding: 30,
+    fontSize: 25,
+    color: '#6dc4a4',
+    fontWeight:'bold',
+    color: '#FFFFFF'
+  },
+  resultado:{
+    alignSelf:'center',
+    color:'lightgray',
+    fontSize: 35,
+    padding: 5,
+  },
+
 });
