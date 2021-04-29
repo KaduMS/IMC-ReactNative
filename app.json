@@ -1,0 +1,12 @@
+{
+  "name": "imc",
+  "displayName": "imc",
+  "expo": {
+    "name": "imc",
+    "slug": "imc",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
