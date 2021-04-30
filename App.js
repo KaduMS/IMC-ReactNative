@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, TextInput, View, TouchableOpacity, Keyboard, TouchableWithoutFeedback } from 'react-native';
+import { color } from 'react-native-reanimated';
 
 
 // type Props = {};
@@ -26,7 +27,6 @@ export default class App extends Component {
     // 30 a < 35 Obesidade I
     // 35 a < 40 Obesidade II
     // > 40 Obesidade III (Mórbida)
-     
 
     if(s.resultado <16){
       s.resultadoText = 'Magreza severa'
@@ -56,18 +56,19 @@ export default class App extends Component {
     }
     this.setState(s)
   }
+
   render(){
     return (
       <View style={styles.container}>
         <Text style={styles.titulo}>IMC</Text>
         <Text style={styles.subtitulo}>Índice de Massa Corporal</Text>
         <View style={styles.entradas}>
-          <TextInput placeholder="Peso" keyboardType="numeric" style={styles.input} onChangeText={(massa)=>{this.setState({massa})}}/>
-          <TextInput placeholder="Altura" keyboardType="numeric" style={styles.input} onChangeText={(altura)=>{this.setState({altura})}}/>
+          <TextInput placeholder="Peso" placeholderTextColor='lightgray' keyboardType="numeric" style={styles.input} onChangeText={(massa)=>{this.setState({massa})}}/>
+          <TextInput placeholder="Altura" placeholderTextColor='lightgray' keyboardType="numeric" style={styles.input} onChangeText={(altura)=>{this.setState({altura})}}/>
         </View>
         <TouchableOpacity style={styles.button} onPress={this.calcular}><Text style={styles.buttonText}>Calcular</Text></TouchableOpacity>
         <Text style={[styles.resultado, {paddingTop:15}]}>{this.state.resultado.toFixed(2)}</Text>
-        <Text style={[styles.resultado, {fontSize:65, paddingTop:5, color:'red'}]}>{this.state.resultadoText}</Text>
+        <Text style={[styles.resultado, {fontSize:65, color:'#FFFFFF'}]}>{this.state.resultadoText}</Text>
       </View>
     );
   }
@@ -75,20 +76,20 @@ export default class App extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFF',
+    backgroundColor: '#5C014E',
     paddingTop: 35
   },
   titulo:{
     fontSize: 55,
     alignSelf: 'center',
-    color: '#5C014E',
+    color: '#FFFFFF',
     fontFamily: 'sans-serif',
     fontWeight: 'bold'
   },
   subtitulo:{
     alignSelf: 'center',
     fontSize: 25,
-    color: '#5C014E',
+    color: '#FFFFFF',
     fontWeight: 'bold'
   },
   entradas:{
@@ -97,24 +98,26 @@ const styles = StyleSheet.create({
   input:{
     height: 80,
     textAlign: "left",
+    alignSelf: 'center',
     width: "50%",
     fontSize: 50,
     marginTop: 24,
-    padding: 10
+    padding: 10,
+    color: '#FFFFFF'
   },
   button:{
-    backgroundColor:"#5C014E"
+    backgroundColor:"#FFFFFF"
   },
   buttonText:{
     alignSelf: 'center',
     padding: 30,
     fontSize: 25,
-    color: '#6dc4a4',
     fontWeight:'bold',
-    color: '#FFFFFF'
+    color: '#5C014E'
   },
   resultado:{
     alignSelf:'center',
+    textAlign:'center',
     color:'lightgray',
     fontSize: 35,
     padding: 5,
